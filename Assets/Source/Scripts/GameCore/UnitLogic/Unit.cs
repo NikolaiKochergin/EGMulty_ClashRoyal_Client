@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Source.Scripts.GameCore.States;
 using Source.Scripts.GameCore.UnitLogic.States;
 using Source.Scripts.StaticData;
+using Source.Scripts.UI;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -12,6 +13,7 @@ namespace Source.Scripts.GameCore.UnitLogic
     public class Unit : MonoBehaviour , IDamageable
     {
         [SerializeField] private NavMeshAgent _agent;
+        [SerializeField] private SpriteSlider _healthSlider;
         [SerializeField] private UnitStats _stats;
         
         private FSM _fsm;
@@ -39,6 +41,8 @@ namespace Source.Scripts.GameCore.UnitLogic
             _agent.speed = _stats.Speed;
             _agent.radius = _stats.ModelRadius;
             
+            _healthSlider.SetFill(_health.CurrentValue/_health.MaxValue);
+            
             _fsm.Initialize<MoveState>(new Dictionary<Type, FSMState>
             {
                 [typeof(MoveState)] = new MoveState(_fsm, this, _agent, _enemyTeam),
@@ -50,8 +54,11 @@ namespace Source.Scripts.GameCore.UnitLogic
         private void Update() => 
             _fsm.Update();
 
-        public void ApplyDamage(float value) => 
+        public void ApplyDamage(float value)
+        {
             _health.ApplyDamage(value);
+            _healthSlider.SetFill(_health.CurrentValue/_health.MaxValue);
+        }
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()
