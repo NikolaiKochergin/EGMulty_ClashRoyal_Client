@@ -11,23 +11,35 @@ namespace Source.Scripts.GameCore.UnitLogic
         [SerializeField, Min(0)] private float _radius = 2f;
 
         private Health _health;
-        
+        private Team _selfTeam;
+
         public Transform Transform => transform;
         public float Radius => _radius;
         public IHealth Health => _health;
 
-        private void Start() => Initialize(); 
-
-        private void Initialize()
+        public void Construct(Team selfTeam)
         {
+            _selfTeam = selfTeam;
             _health = new Health(_healthMaxValue);
+        }
+
+        private void Start()
+        {
             _healthSlider.SetFill(_health.CurrentValue/_health.MaxValue);
+            _health.Died += OnDied;
         }
 
         public void ApplyDamage(float value)
         {
             _health.ApplyDamage(value);
             _healthSlider.SetFill(_health.CurrentValue/_health.MaxValue);
+        }
+
+        private void OnDied()
+        {
+            _health.Died -= OnDied;
+            _selfTeam.Remove(this);
+            Destroy(gameObject);
         }
 
 #if UNITY_EDITOR

@@ -19,11 +19,10 @@ namespace Source.Scripts.GameCore.UnitLogic
         public void ApplyDamage(float value)
         {
             CurrentValue -= value;
-            if (CurrentValue < 0)
+            if (CurrentValue <= 0)
             {
                 CurrentValue = 0;
                 Died?.Invoke();
-                return;
             }
             
             Changed?.Invoke();

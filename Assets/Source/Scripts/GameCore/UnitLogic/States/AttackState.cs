@@ -5,8 +5,6 @@ namespace Source.Scripts.GameCore.UnitLogic.States
 {
     public class AttackState : FSMState
     {
-        private const float DamageValue = 1.5f;
-        private const float AttackDelay = 1f;
         
         private readonly Unit _unit;
         private readonly Team _enemyTeam;
@@ -33,23 +31,23 @@ namespace Source.Scripts.GameCore.UnitLogic.States
 
         public override void Update()
         {
-            _time += Time.deltaTime;
-            if(_time < AttackDelay)
-                return;
-
-            _time -= AttackDelay;
-            
-            if (_target == null)
+            if (_target.Health.CurrentValue == 0)
             {
                 Fsm.Set<MoveState>();
                 return;
             }
             
+            _time += Time.deltaTime;
+            if(_time < _unit.Stats.AttackDelay)
+                return;
+
+            _time -= _unit.Stats.AttackDelay;
+            
             float distanceToTarget = Vector3.Distance(_unit.transform.position, _target.Transform.position);
             if(distanceToTarget > _stopAttackDistance + _target.Radius)
                 Fsm.Set<ChaseState>();
             
-            _target.ApplyDamage(DamageValue);
+            _target.ApplyDamage(_unit.Stats.Damage);
         }
 
         private bool TryFindTarget(out float stopAttackDistance)

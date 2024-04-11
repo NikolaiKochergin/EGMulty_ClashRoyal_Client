@@ -22,6 +22,11 @@ namespace Source.Scripts.GameCore.UnitLogic.States
         public override void Enter()
         {
             _nearestTower = _enemyTeam.GetNearestTower(_unit.Transform.position);
+            if (_nearestTower == null)
+            {
+                Fsm.Set<VictoryState>();
+                return;
+            }
             _agent.isStopped = false;
             _agent.SetDestination(_nearestTower.Transform.position);
         }

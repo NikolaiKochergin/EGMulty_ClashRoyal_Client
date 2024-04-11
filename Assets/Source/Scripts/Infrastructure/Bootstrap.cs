@@ -1,5 +1,4 @@
-﻿using Source.Scripts.GameCore;
-using Source.Scripts.GameCore.MapLogic;
+﻿using Source.Scripts.GameCore.MapLogic;
 using Source.Scripts.GameCore.Services.Enemy;
 using Source.Scripts.GameCore.Services.Player;
 using UnityEngine;
@@ -15,11 +14,11 @@ namespace Source.Scripts.Infrastructure
 
         private void Awake()
         {
-            _player = new PlayerService(new Team(_mapInfo.PlayerTowers, _mapInfo.PlayerUnits));
-            _enemy = new EnemyService(new Team(_mapInfo.EnemyTowers, _mapInfo.EnemyUnits));
+            _player = new PlayerService();
+            _enemy = new EnemyService();
             
-            _player.Initialize(_enemy.Team);
-            _enemy.Initialize(_player.Team);
+            _player.Initialize(_enemy.Team, _mapInfo.PlayerTowers, _mapInfo.PlayerUnits);
+            _enemy.Initialize(_player.Team, _mapInfo.EnemyTowers, _mapInfo.EnemyUnits);
         }
     }
 }

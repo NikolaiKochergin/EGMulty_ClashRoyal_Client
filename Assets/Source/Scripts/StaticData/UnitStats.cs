@@ -14,6 +14,9 @@ namespace Source.Scripts.StaticData
         [SerializeField, Min(0)] private float _stopAttackDistance = 1.5f;
         [SerializeField, Min(0)] private float _startChaseDistance = 5f;
         [SerializeField, Min(0)] private float _stopChaseDistance = 7f;
+        [Space(10)] 
+        [SerializeField, Min(0)] private float _damage = 2f;
+        [SerializeField, Min(0)] private float _attackDelay = 1f;
         
         public float HealthMaxValue => _healthMaxValue;
         public float Speed => _speed;
@@ -22,5 +25,7 @@ namespace Source.Scripts.StaticData
         public float StopAttackDistance => _stopAttackDistance;
         public float StartChaseDistance => _startChaseDistance;
         public float StopChaseDistance => _stopChaseDistance;
+        public float Damage => _damage;
+        public float AttackDelay => _attackDelay;
     }
 }
