@@ -13,7 +13,7 @@ namespace Source.Scripts.GameCore.UnitLogic.States
 
         private float _startAttackDistance;
 
-        public ChaseState(FSM fsm, Unit unit, NavMeshAgent agent, Team enemyTeam) : base(fsm)
+        public ChaseState(Unit unit, NavMeshAgent agent, Team enemyTeam)
         {
             _unit = unit;
             _agent = agent;

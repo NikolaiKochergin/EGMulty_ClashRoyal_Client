@@ -34,7 +34,13 @@ namespace Source.Scripts.GameCore.UnitLogic
             _selfTeam = selfTeam;
             _enemyTeam = enemyTeam;
             _health = new Health(_stats.HealthMaxValue);
-            _fsm = new FSM();
+            _fsm = new FSMBuilder()
+                .Add(new MoveState(this, _agent, _enemyTeam))
+                .Add(new AttackState(this, _enemyTeam))
+                .Add(new ChaseState(this, _agent, _enemyTeam))
+                .Add(new VictoryState())
+                .Add(new DieState(this))
+                .Build();
         }
 
         private void Start()
@@ -46,14 +52,7 @@ namespace Source.Scripts.GameCore.UnitLogic
             _healthSlider.SetFill(_health.CurrentValue/_health.MaxValue);
             _health.Died += OnDied;
             
-            _fsm.Initialize<MoveState>(new Dictionary<Type, FSMState>
-            {
-                [typeof(MoveState)] = new MoveState(_fsm, this, _agent, _enemyTeam),
-                [typeof(AttackState)] = new AttackState(_fsm, this, _enemyTeam),
-                [typeof(ChaseState)] = new ChaseState(_fsm, this, _agent, _enemyTeam),
-                [typeof(VictoryState)] = new VictoryState(_fsm),
-                [typeof(DieState)] = new DieState(_fsm, this),
-            });
+            _fsm.Set<MoveState>();
         }
 
         private void Update() => 

@@ -2,11 +2,9 @@
 {
     public abstract class FSMState
     {
-        protected FSMState(FSM fsm) => 
-            Fsm = fsm;
+        protected FSM Fsm { get; private set; }
 
-        protected FSM Fsm { get; }
-
+        public void Bind(FSM fsm) => Fsm = fsm;
         public virtual void Enter() { }
         public virtual void Update() { }
         public virtual void Exit() { }

@@ -12,9 +12,8 @@ namespace Source.Scripts.GameCore.UnitLogic.States
         private IDamageable _target;
         private float _stopAttackDistance;
         private float _time;
-        
 
-        public AttackState(FSM fsm, Unit unit, Team enemyTeam) : base(fsm)
+        public AttackState(Unit unit, Team enemyTeam)
         {
             _unit = unit;
             _enemyTeam = enemyTeam;

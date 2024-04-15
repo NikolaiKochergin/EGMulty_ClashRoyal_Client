@@ -8,13 +8,9 @@ namespace Source.Scripts.GameCore.States
     {
         private Dictionary<Type, FSMState> _states;
         private FSMState _currentState;
-        
-        public void Initialize<TDefaultState>(Dictionary<Type, FSMState> states) where TDefaultState : FSMState
-        {
+
+        public FSM(Dictionary<Type, FSMState> states) => 
             _states = states;
-            _currentState = _states[typeof(TDefaultState)];
-            _currentState.Enter();
-        }
 
         public void Set<T>() where T : FSMState
         {

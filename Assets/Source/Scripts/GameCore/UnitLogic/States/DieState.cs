@@ -7,10 +7,8 @@ namespace Source.Scripts.GameCore.UnitLogic.States
     {
         private readonly Unit _unit;
 
-        public DieState(FSM fsm, Unit unit) : base(fsm)
-        {
+        public DieState(Unit unit) => 
             _unit = unit;
-        }
 
         public override void Enter()
         {

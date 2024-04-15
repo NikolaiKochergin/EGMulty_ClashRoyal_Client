@@ -20,4 +20,6 @@ Week-7
 
 9. Добавил юнитам и башням по слайдеру, для отображения здоровья.
 
+10. Решил заморочиться с процессом создания FSM и сделал для нее билдер. https://github.com/NikolaiKochergin/EGMulty_ClashRoyal_Client/tree/week-7/Assets/Source/Scripts/GameCore/States
+
 
