@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Source.Scripts.UI
+namespace Source.Scripts.GameCore.UnitLogic.UI
 {
     public class SpriteSlider : MonoBehaviour
     {

@@ -9,13 +9,17 @@ namespace Source.Scripts.GameCore.Services.Player
 
         public void Initialize(Team enemyTeam, IReadOnlyList<Tower> selfTowers, IReadOnlyList<Unit> selfUnits)
         {
-            Team.Initialize(enemyTeam);
-            
-            foreach (Tower tower in selfTowers) 
+            foreach (Tower tower in selfTowers)
+            {
+                tower.Construct();
                 Team.Add(tower);
+            }
 
-            foreach (Unit unit in selfUnits) 
+            foreach (Unit unit in selfUnits)
+            {
+                unit.Construct(enemyTeam);
                 Team.Add(unit);
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Source.Scripts.UI;
+﻿using Source.Scripts.GameCore.UnitLogic.UI;
 using UnityEditor;
 using UnityEngine;
 
@@ -6,39 +6,31 @@ namespace Source.Scripts.GameCore.UnitLogic
 {
     public class Tower : MonoBehaviour , IDamageable
     {
-        [SerializeField] private SpriteSlider _healthSlider;
+        [SerializeField] private HealthBar _healthBar;
         [SerializeField, Min(0)] private float _healthMaxValue = 20f;
         [SerializeField, Min(0)] private float _radius = 2f;
 
         private Health _health;
-        private Team _selfTeam;
 
         public Transform Transform => transform;
         public float Radius => _radius;
         public IHealth Health => _health;
 
-        public void Construct(Team selfTeam)
-        {
-            _selfTeam = selfTeam;
+        public void Construct() => 
             _health = new Health(_healthMaxValue);
-        }
 
         private void Start()
         {
-            _healthSlider.SetFill(_health.CurrentValue/_health.MaxValue);
+            _healthBar.Initialize(_health);
             _health.Died += OnDied;
         }
 
-        public void ApplyDamage(float value)
-        {
+        public void ApplyDamage(float value) => 
             _health.ApplyDamage(value);
-            _healthSlider.SetFill(_health.CurrentValue/_health.MaxValue);
-        }
 
         private void OnDied()
         {
             _health.Died -= OnDied;
-            _selfTeam.Remove(this);
             Destroy(gameObject);
         }
 

@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _agent: {fileID: 5261871188803967878}
-  _healthSlider: {fileID: 1351991073345862859}
+  _healthBar: {fileID: 2649140304553976801}
   _stats:
     _healthMaxValue: 10
     _speed: 4
@@ -79,6 +79,8 @@ MonoBehaviour:
     _stopAttackDistance: 1.2
     _startChaseDistance: 2.5
     _stopChaseDistance: 3
+    _damage: 2
+    _attackDelay: 1
 --- !u!1 &5008426733364071256
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,16 +372,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5ad4ee5009b24e45920672d260fe38c, type: 3}
---- !u!114 &1351991073345862859 stripped
+--- !u!114 &2649140304553976801 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3714194125887303002, guid: f5ad4ee5009b24e45920672d260fe38c,
+  m_CorrespondingSourceObject: {fileID: 399668375321686640, guid: f5ad4ee5009b24e45920672d260fe38c,
     type: 3}
   m_PrefabInstance: {fileID: 2398249639382716817}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd8c918663d9140418a139a77538e1b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 12dbd9598b5149b9b1e123f52d5a8826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &4383972928518203965 stripped

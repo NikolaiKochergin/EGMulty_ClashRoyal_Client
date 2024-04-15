@@ -13,6 +13,7 @@ namespace Source.Scripts.GameCore.UnitLogic.States
         public override void Enter()
         {
             Debug.Log($"{_unit.gameObject.name} DIED");
+            Object.Destroy(_unit.gameObject);
         }
     }
 }

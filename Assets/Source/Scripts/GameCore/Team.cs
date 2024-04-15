@@ -8,29 +8,12 @@ namespace Source.Scripts.GameCore
     {
         private readonly List<Tower> _towers = new List<Tower>();
         private readonly List<Unit> _units = new List<Unit>();
-        
-        private Team _enemyTeam;
 
-        public void Initialize(Team enemyTeam) => 
-            _enemyTeam = enemyTeam;
+        public void Add(Tower tower) => 
+            AddObjectToList(_towers, tower);
 
-        public void Add(Tower tower)
-        {
-            tower.Construct(this);
-            _towers.Add(tower);
-        }
-
-        public void Add(Unit unit)
-        {
-            unit.Construct(this, _enemyTeam);
-            _units.Add(unit);
-        }
-
-        public void Remove(Tower tower) => 
-            _towers.Remove(tower);
-
-        public void Remove(Unit unit) => 
-            _units.Remove(unit);
+        public void Add(Unit unit) => 
+            AddObjectToList(_units, unit);
 
         public bool TryGetNearestUnit(in Vector3 currentPosition, out Unit unit, out float distance)
         {
@@ -57,6 +40,25 @@ namespace Source.Scripts.GameCore
             }
 
             return (T) nearestTarget;
+        }
+
+        private static void AddObjectToList<T>(ICollection<T> list, T obj) where T : IDamageable
+        {
+            list.Add(obj);
+            obj.Health.Died += RemoveAndUnsubscribe;
+            return;
+
+            void RemoveAndUnsubscribe()
+            {
+                RemoveObjectFromList(list, obj);
+                obj.Health.Died -= RemoveAndUnsubscribe;
+            }
+        }
+
+        private static void RemoveObjectFromList<T>(ICollection<T> list, T obj)
+        {
+            if (list.Contains(obj))
+                list.Remove(obj);
         }
     }
 }
