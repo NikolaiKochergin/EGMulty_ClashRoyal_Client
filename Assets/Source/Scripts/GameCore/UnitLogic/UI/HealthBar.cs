@@ -12,13 +12,17 @@ namespace Source.Scripts.GameCore.UnitLogic.UI
         {
             _health = health;
             DisplayHealth();
+            gameObject.SetActive(false);
             _health.Changed += DisplayHealth;
         }
 
         private void OnDestroy() => 
             _health.Changed -= DisplayHealth;
 
-        private void DisplayHealth() => 
-            _spriteSlider.SetFill(_health.CurrentValue/_health.MaxValue);
+        private void DisplayHealth()
+        {
+            gameObject.SetActive(true);
+            _spriteSlider.SetFill(_health.CurrentValue / _health.MaxValue);
+        }
     }
 }
