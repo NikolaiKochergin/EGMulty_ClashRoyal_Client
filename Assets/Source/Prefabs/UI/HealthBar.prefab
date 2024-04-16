@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 2134507699706805164}
   - component: {fileID: 399668375321686640}
   - component: {fileID: 1462734707228452979}
+  - component: {fileID: 8368506656619021741}
   m_Layer: 0
   m_Name: HealthBar
   m_TagString: Untagged
@@ -235,6 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteSlider: {fileID: 3714194125887303002}
+  _healthFade: {fileID: 8368506656619021741}
 --- !u!114 &1462734707228452979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,3 +249,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 439d027ffc2b25a43898501beb763d1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8368506656619021741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8741146209069736926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07fdd7c4492f4efb972ff6eb7ba6bc2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderers:
+  - {fileID: 8355243275326051496}
+  - {fileID: 3134528236540959917}
+  _fadeInDuration: 0.1
+  _holdDuration: 1.5
+  _fadeOutDuration: 0.25
