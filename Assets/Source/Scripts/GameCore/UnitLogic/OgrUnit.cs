@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace Source.Scripts.GameCore.UnitLogic
 {
-    public class MeleeUnit : UnitBase
+    public class OgrUnit : UnitBase
     {
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private UnitAnimator _unitAnimator;
@@ -15,7 +15,7 @@ namespace Source.Scripts.GameCore.UnitLogic
         private FSM _fsm;
         private IMover _mover;
         private TargetContainer _target;
-        private MeleeUnitBrain _brain;
+        private OgrUnitBrain _brain;
         
         public override void Construct(Team enemyTeam)
         {
@@ -31,7 +31,7 @@ namespace Source.Scripts.GameCore.UnitLogic
                 .Add(new VictoryState(_unitAnimator))
                 .Add(new DieState(_unitAnimator))
                 .Build();
-            _brain = new MeleeUnitBrain(this, _fsm, enemyTeam, _target);
+            _brain = new OgrUnitBrain(this, _fsm, enemyTeam, _target);
         }
         
         private void Update()

@@ -22,8 +22,8 @@ namespace Source.Scripts.Infrastructure
 
         public void Start()
         {
-            _player.Initialize(_enemy.Team, _mapInfo.PlayerTowers, _mapInfo.PlayerUnits);
-            _enemy.Initialize(_player.Team, _mapInfo.EnemyTowers, _mapInfo.EnemyUnits);
+            _player.Initialize(_enemy.Team, _mapInfo.Player.Towers, _mapInfo.Player.Units);
+            _enemy.Initialize(_player.Team, _mapInfo.Enemy.Towers, _mapInfo.Enemy.Units);
         }
     }
 }

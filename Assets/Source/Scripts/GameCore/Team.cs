@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Source.Scripts.GameCore.UnitLogic;
 using UnityEngine;
 
@@ -6,18 +7,35 @@ namespace Source.Scripts.GameCore
 {
     public class Team
     {
-        private readonly List<Tower> _towers = new List<Tower>();
-        private readonly List<UnitBase> _units = new List<UnitBase>();
+        private readonly List<IDamageable> _towers = new List<IDamageable>();
+        private readonly List<IDamageable> _meleeUnits = new List<IDamageable>();
+        private readonly List<IDamageable> _flyUnits = new List<IDamageable>();
+        private readonly List<IDamageable> _ogrUnits = new List<IDamageable>();
 
         public void Add(Tower tower) => 
             AddObjectToList(_towers, tower);
 
-        public void Add(UnitBase unit) => 
-            AddObjectToList(_units, unit);
+        public void Add(UnitBase unit)
+        {
+            switch (unit)
+            {
+                case MeleeUnit:
+                    AddObjectToList(_meleeUnits, unit);
+                    break;
+                case FlyUnit:
+                    AddObjectToList(_flyUnits, unit);
+                    break;
+                case OgrUnit:
+                    AddObjectToList(_ogrUnits, unit);
+                    break;
+                default:
+                    throw new ArgumentException($"Trying to add unsupported unit type of {unit.GetType()}");
+            }
+        }
 
         public bool TryGetNearestUnit(in Vector3 currentPosition, out IDamageable unit)
         {
-            unit = GetNearest(currentPosition, _units);
+            unit = GetNearest(currentPosition, _meleeUnits);
             return unit != null;
         }
 
@@ -34,6 +52,9 @@ namespace Source.Scripts.GameCore
             
             foreach (T target in objects)
             {
+                if(target.Health.CurrentValue == 0)
+                    continue;
+                
                 float tempDistance = Vector3.Distance(currentPosition, target.Transform.position);
                 if(tempDistance > distance)
                     continue;
