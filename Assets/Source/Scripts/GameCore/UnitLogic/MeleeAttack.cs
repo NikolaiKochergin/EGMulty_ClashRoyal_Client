@@ -7,7 +7,7 @@ namespace Source.Scripts.GameCore.UnitLogic
         private float _delay;
         private float _damage;
 
-        public override void Initialize(UnitStats stats)
+        public override void Construct(UnitStats stats)
         {
             _delay = stats.AttackDelay;
             _damage = stats.Damage;

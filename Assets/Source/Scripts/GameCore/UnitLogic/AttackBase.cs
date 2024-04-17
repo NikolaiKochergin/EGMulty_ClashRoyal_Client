@@ -7,7 +7,7 @@ namespace Source.Scripts.GameCore.UnitLogic
     {
         public abstract float Delay { get; }
 
-        public abstract void Initialize(UnitStats stats);
+        public abstract void Construct(UnitStats stats);
         public abstract void ApplyTo(IDamageable target);
     }
 }

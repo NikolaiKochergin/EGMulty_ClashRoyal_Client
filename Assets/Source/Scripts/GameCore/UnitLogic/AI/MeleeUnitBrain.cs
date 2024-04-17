@@ -6,17 +6,18 @@ namespace Source.Scripts.GameCore.UnitLogic.AI
 {
     public class MeleeUnitBrain
     {
-        private readonly Unit _unit;
+        private readonly UnitBase _unit;
         private readonly FSM _fsm;
         private readonly Team _enemyTeam;
         private readonly TargetContainer _target;
         
-        public MeleeUnitBrain(Unit unit, FSM fsm, Team enemyTeam, TargetContainer target)
+        public MeleeUnitBrain(UnitBase unit, FSM fsm, Team enemyTeam, TargetContainer target)
         {
             _unit = unit;
             _fsm = fsm;
             _enemyTeam = enemyTeam;
             _target = target;
+            _unit.Health.Died += OnDied;
         }
 
         public void Update()
@@ -87,6 +88,12 @@ namespace Source.Scripts.GameCore.UnitLogic.AI
             }
             
             _fsm.Update();
+        }
+
+        private void OnDied()
+        {
+            _unit.Health.Died -= OnDied;
+            _fsm.Set<DieState>();
         }
 
         private float DistanceTo(Transform transform) => 

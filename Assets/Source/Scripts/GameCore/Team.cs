@@ -7,12 +7,12 @@ namespace Source.Scripts.GameCore
     public class Team
     {
         private readonly List<Tower> _towers = new List<Tower>();
-        private readonly List<Unit> _units = new List<Unit>();
+        private readonly List<UnitBase> _units = new List<UnitBase>();
 
         public void Add(Tower tower) => 
             AddObjectToList(_towers, tower);
 
-        public void Add(Unit unit) => 
+        public void Add(UnitBase unit) => 
             AddObjectToList(_units, unit);
 
         public bool TryGetNearestUnit(in Vector3 currentPosition, out IDamageable unit)

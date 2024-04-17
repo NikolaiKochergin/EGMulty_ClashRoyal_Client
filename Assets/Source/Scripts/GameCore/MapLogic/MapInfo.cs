@@ -8,12 +8,12 @@ namespace Source.Scripts.GameCore.MapLogic
     {
         [SerializeField] private List<Tower> _playerTowers;
         [SerializeField] private List<Tower> _enemyTowers;
-        [SerializeField] private List<Unit> _playerUnits;
-        [SerializeField] private List<Unit> _enemyUnits;
+        [SerializeField] private List<UnitBase> _playerUnits;
+        [SerializeField] private List<UnitBase> _enemyUnits;
 
         public IReadOnlyList<Tower> PlayerTowers => _playerTowers;
         public IReadOnlyList<Tower> EnemyTowers => _enemyTowers;
-        public IReadOnlyList<Unit> PlayerUnits => _playerUnits;
-        public IReadOnlyList<Unit> EnemyUnits => _enemyUnits;
+        public IReadOnlyList<UnitBase> PlayerUnits => _playerUnits;
+        public IReadOnlyList<UnitBase> EnemyUnits => _enemyUnits;
     }
 }

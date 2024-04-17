@@ -7,7 +7,7 @@ namespace Source.Scripts.GameCore.Services.Player
     {
         public Team Team { get; } = new();
 
-        public void Initialize(Team enemyTeam, IReadOnlyList<Tower> selfTowers, IReadOnlyList<Unit> selfUnits)
+        public void Initialize(Team enemyTeam, IReadOnlyList<Tower> selfTowers, IReadOnlyList<UnitBase> selfUnits)
         {
             foreach (Tower tower in selfTowers)
             {
@@ -15,7 +15,7 @@ namespace Source.Scripts.GameCore.Services.Player
                 Team.Add(tower);
             }
 
-            foreach (Unit unit in selfUnits)
+            foreach (UnitBase unit in selfUnits)
             {
                 unit.Construct(enemyTeam);
                 Team.Add(unit);
