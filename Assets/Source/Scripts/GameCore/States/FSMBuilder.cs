@@ -18,11 +18,8 @@ namespace Source.Scripts.GameCore.States
         {
             Type key = state.GetType();
 
-            if (_states.ContainsKey(key))
+            if (_states.TryAdd(key, state) == false)
                 throw new ArgumentException($"The FSM already contains the state type of {key}");
-            
-            state.Bind(_fsm);
-            _states.Add(key, state);
 
             return this;
         }

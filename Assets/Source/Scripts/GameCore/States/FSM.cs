@@ -6,12 +6,13 @@ namespace Source.Scripts.GameCore.States
 {
     public class FSM
     {
-        private Dictionary<Type, FSMState> _states;
-        private FSMState _currentState;
+        private readonly Dictionary<Type, FSMState> _states;
 
         public FSM(Dictionary<Type, FSMState> states) => 
             _states = states;
 
+        public FSMState CurrentState { get; private set; }
+        
         public void Set<T>() where T : FSMState
         {
             if (_states.TryGetValue(typeof(T), out FSMState state) == false)
@@ -20,12 +21,12 @@ namespace Source.Scripts.GameCore.States
                 return;
             }
             
-            _currentState?.Exit();
-            _currentState = state;
-            _currentState.Enter();
+            CurrentState?.Exit();
+            CurrentState = state;
+            CurrentState.Enter();
         }
 
         public void Update() => 
-            _currentState?.Update();
+            CurrentState.Update();
     }
 }

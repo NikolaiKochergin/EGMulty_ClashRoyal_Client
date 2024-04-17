@@ -15,19 +15,22 @@ namespace Source.Scripts.GameCore
         public void Add(Unit unit) => 
             AddObjectToList(_units, unit);
 
-        public bool TryGetNearestUnit(in Vector3 currentPosition, out Unit unit, out float distance)
+        public bool TryGetNearestUnit(in Vector3 currentPosition, out IDamageable unit)
         {
-            unit = GetNearest(currentPosition, _units, out distance);
-            return unit;
+            unit = GetNearest(currentPosition, _units);
+            return unit != null;
         }
 
-        public Tower GetNearestTower(in Vector3 currentPosition) => 
-            GetNearest(currentPosition, _towers, out float distance);
+        public bool TryGetNearestTower(in Vector3 currentPosition, out IDamageable tower)
+        {
+            tower = GetNearest(currentPosition, _towers);
+            return tower != null;
+        }
 
-        private static T GetNearest<T>(in Vector3 currentPosition, IEnumerable<T> objects, out float distance) where T : IDamageable
+        private static IDamageable GetNearest<T>(in Vector3 currentPosition, IEnumerable<T> objects) where T : IDamageable
         {
             IDamageable nearestTarget = null;
-            distance = float.MaxValue;
+            float distance = float.MaxValue;
             
             foreach (T target in objects)
             {
@@ -39,7 +42,7 @@ namespace Source.Scripts.GameCore
                 distance = tempDistance;
             }
 
-            return (T) nearestTarget;
+            return nearestTarget;
         }
 
         private static void AddObjectToList<T>(ICollection<T> list, T obj) where T : IDamageable

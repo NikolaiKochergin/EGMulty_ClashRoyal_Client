@@ -13,14 +13,15 @@ namespace Source.Scripts.GameCore.UnitLogic
         
         [SerializeField] private Animator _animator;
 
-        private Action _onAnimationTriggerCallback;
+        private Action _onAttackExecuteCallback;
+        private Action _onDieAnimationOverCallback;
 
         public void ShowIdle() => 
             _animator.SetTrigger(Idle);
 
-        public void ShowAttack(Action onAttackHappenedCallback = null)
+        public void ShowAttack(Action onAttackExecuteCallback = null)
         {
-            _onAnimationTriggerCallback = onAttackHappenedCallback;
+            _onAttackExecuteCallback = onAttackExecuteCallback;
             _animator.ResetTrigger(Run);
             _animator.SetTrigger(Attack);
         }
@@ -33,14 +34,14 @@ namespace Source.Scripts.GameCore.UnitLogic
 
         public void ShowDie(Action onDieAnimationOverCallback = null)
         {
-            _onAnimationTriggerCallback = onDieAnimationOverCallback;
+            _onDieAnimationOverCallback = onDieAnimationOverCallback;
             _animator.SetTrigger(Die);
         }
 
         private void Handle_AttackAnimationTrigger() => 
-            _onAnimationTriggerCallback?.Invoke();
+            _onAttackExecuteCallback?.Invoke();
 
         private void Handle_DieAnimationOver() => 
-            _onAnimationTriggerCallback?.Invoke();
+            _onDieAnimationOverCallback?.Invoke();
     }
 }
