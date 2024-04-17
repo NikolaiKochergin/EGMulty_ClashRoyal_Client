@@ -9,6 +9,7 @@ namespace Source.Scripts.GameCore.UnitLogic.States
         private readonly AttackBase _attack;
         private readonly TargetContainer _target;
 
+        private IDamageable _tempTarget;
         private float _time;
 
         public AttackState(UnitAnimator unitAnimator, AttackBase attack, TargetContainer target)
@@ -32,8 +33,8 @@ namespace Source.Scripts.GameCore.UnitLogic.States
                 return;
 
             _time -= _attack.Delay;
-            
-            _animator.ShowAttack(()=> _attack.ApplyTo(_target.Damageable));
+            _tempTarget = _target.Damageable;
+            _animator.ShowAttack(()=> _attack.ApplyTo(_tempTarget));
         }
     }
 }
