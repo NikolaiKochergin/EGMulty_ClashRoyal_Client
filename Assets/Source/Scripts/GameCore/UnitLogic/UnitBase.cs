@@ -7,6 +7,7 @@ namespace Source.Scripts.GameCore.UnitLogic
 {
     public abstract class UnitBase : MonoBehaviour, IDamageable
     {
+        [SerializeField] private Transform _projectileAim;
         [SerializeField] private HealthBar _healthBar;
         [SerializeField] private UnitStats _stats;
         
@@ -17,6 +18,7 @@ namespace Source.Scripts.GameCore.UnitLogic
 
         public UnitStats Stats => _stats;
         public Transform Transform => transform;
+        public Transform ProjectileAim => _projectileAim;
         public IHealth Health => _health;
         public float Radius => _stats.ModelRadius;
 

@@ -6,6 +6,7 @@ namespace Source.Scripts.GameCore.UnitLogic
 {
     public class Tower : MonoBehaviour , IDamageable
     {
+        [SerializeField] private Transform _projectileAim;
         [SerializeField] private HealthBar _healthBar;
         [SerializeField, Min(0)] private float _healthMaxValue = 20f;
         [SerializeField, Min(0)] private float _radius = 2f;
@@ -13,6 +14,7 @@ namespace Source.Scripts.GameCore.UnitLogic
         private Health _health;
 
         public Transform Transform => transform;
+        public Transform ProjectileAim => _projectileAim;
         public float Radius => _radius;
         public IHealth Health => _health;
 
