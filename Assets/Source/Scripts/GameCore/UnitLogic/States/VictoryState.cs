@@ -1,13 +1,15 @@
 ﻿using Source.Scripts.GameCore.States;
-using UnityEngine;
 
 namespace Source.Scripts.GameCore.UnitLogic.States
 {
     public class VictoryState : FSMState
     {
-        public override void Enter()
-        {
-            Debug.Log("Victory");
-        }
+        private readonly UnitAnimator _animator;
+
+        public VictoryState(UnitAnimator unitAnimator) => 
+            _animator = unitAnimator;
+
+        public override void Enter() => 
+            _animator.ShowVictory();
     }
 }

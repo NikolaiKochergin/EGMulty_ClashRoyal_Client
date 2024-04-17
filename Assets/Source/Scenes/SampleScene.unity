@@ -792,6 +792,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agent: {fileID: 725424990}
   _healthBar: {fileID: 2077525346}
+  _unitAnimator: {fileID: 725424987}
   _stats:
     _healthMaxValue: 10
     _speed: 4
@@ -1436,6 +1437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agent: {fileID: 6547832505496951322}
   _healthBar: {fileID: 1514769633}
+  _unitAnimator: {fileID: 8902351577998191220}
   _stats:
     _healthMaxValue: 10
     _speed: 4

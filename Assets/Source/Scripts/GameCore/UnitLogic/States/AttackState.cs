@@ -7,20 +7,23 @@ namespace Source.Scripts.GameCore.UnitLogic.States
     {
         
         private readonly Unit _unit;
+        private readonly UnitAnimator _animator;
         private readonly Team _enemyTeam;
         
         private IDamageable _target;
         private float _stopAttackDistance;
         private float _time;
 
-        public AttackState(Unit unit, Team enemyTeam)
+        public AttackState(Unit unit, UnitAnimator unitAnimator, Team enemyTeam)
         {
             _unit = unit;
+            _animator = unitAnimator;
             _enemyTeam = enemyTeam;
         }
 
         public override void Enter()
         {
+            _animator.ShowIdle();
             _time = 0;
             if (TryFindTarget(out _stopAttackDistance)) 
                 _unit.transform.LookAt(_target.Transform.position);
@@ -46,7 +49,7 @@ namespace Source.Scripts.GameCore.UnitLogic.States
             if(distanceToTarget > _stopAttackDistance + _target.Radius)
                 Fsm.Set<ChaseState>();
             
-            _target.ApplyDamage(_unit.Stats.Damage);
+            _animator.ShowAttack(()=> _target.ApplyDamage(_unit.Stats.Damage));
         }
 
         private bool TryFindTarget(out float stopAttackDistance)

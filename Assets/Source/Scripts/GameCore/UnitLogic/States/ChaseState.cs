@@ -7,21 +7,24 @@ namespace Source.Scripts.GameCore.UnitLogic.States
     public class ChaseState : FSMState
     {
         private readonly Unit _unit;
+        private readonly UnitAnimator _animator;
         private readonly NavMeshAgent _agent;
         private readonly Team _enemyTeam;
         private ITarget _targetUnit;
 
         private float _startAttackDistance;
 
-        public ChaseState(Unit unit, NavMeshAgent agent, Team enemyTeam)
+        public ChaseState(Unit unit, UnitAnimator unitAnimator, NavMeshAgent agent, Team enemyTeam)
         {
             _unit = unit;
+            _animator = unitAnimator;
             _agent = agent;
             _enemyTeam = enemyTeam;
         }
 
         public override void Enter()
         {
+            _animator.ShowRun();
             _agent.isStopped = false;
             if (_enemyTeam.TryGetNearestUnit(_unit.Transform.position, out Unit targetUnit, out float distance))
             {

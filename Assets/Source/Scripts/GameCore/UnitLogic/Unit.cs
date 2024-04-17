@@ -12,6 +12,7 @@ namespace Source.Scripts.GameCore.UnitLogic
     {
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private HealthBar _healthBar;
+        [SerializeField] private UnitAnimator _unitAnimator;
         [SerializeField] private UnitStats _stats;
         
         private FSM _fsm;
@@ -29,11 +30,11 @@ namespace Source.Scripts.GameCore.UnitLogic
         {
             _health = new Health(_stats.HealthMaxValue);
             _fsm = new FSMBuilder()
-                .Add(new MoveState(this, _agent, enemyTeam))
-                .Add(new AttackState(this, enemyTeam))
-                .Add(new ChaseState(this, _agent, enemyTeam))
-                .Add(new VictoryState())
-                .Add(new DieState(this))
+                .Add(new MoveState(this, _unitAnimator, _agent, enemyTeam))
+                .Add(new AttackState(this, _unitAnimator, enemyTeam))
+                .Add(new ChaseState(this, _unitAnimator, _agent, enemyTeam))
+                .Add(new VictoryState(_unitAnimator))
+                .Add(new DieState(_unitAnimator))
                 .Build();
         }
 

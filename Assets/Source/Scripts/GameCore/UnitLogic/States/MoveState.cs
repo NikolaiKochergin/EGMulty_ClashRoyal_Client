@@ -7,14 +7,16 @@ namespace Source.Scripts.GameCore.UnitLogic.States
     public class MoveState : FSMState
     {
         private readonly Unit _unit;
+        private readonly UnitAnimator _animator;
         private readonly NavMeshAgent _agent;
         private readonly Team _enemyTeam;
 
         private ITarget _nearestTower;
 
-        public MoveState(Unit unit, NavMeshAgent agent, Team enemyTeam)
+        public MoveState(Unit unit, UnitAnimator unitAnimator, NavMeshAgent agent, Team enemyTeam)
         {
             _unit = unit;
+            _animator = unitAnimator;
             _agent = agent;
             _enemyTeam = enemyTeam;
         }
@@ -29,6 +31,7 @@ namespace Source.Scripts.GameCore.UnitLogic.States
             }
             _agent.isStopped = false;
             _agent.SetDestination(_nearestTower.Transform.position);
+            _animator.ShowRun();
         }
 
         public override void Update()
