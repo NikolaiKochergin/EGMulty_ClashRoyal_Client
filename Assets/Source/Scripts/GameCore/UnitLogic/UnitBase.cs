@@ -10,6 +10,7 @@ namespace Source.Scripts.GameCore.UnitLogic
         [SerializeField] private Transform _projectileAim;
         [SerializeField] private HealthBar _healthBar;
         [SerializeField] private UnitStats _stats;
+        [SerializeField] private ParticleSystem _takeDamageParticles;
         
         private Health _health;
 
@@ -25,8 +26,12 @@ namespace Source.Scripts.GameCore.UnitLogic
         private void Start() => 
             _healthBar.Initialize(_health);
 
-        public void ApplyDamage(float value) => 
+        public void ApplyDamage(float value)
+        {
+            if(_takeDamageParticles)
+                _takeDamageParticles.Play();
             _health.ApplyDamage(value);
+        }
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()

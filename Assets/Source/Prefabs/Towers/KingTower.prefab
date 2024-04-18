@@ -278,6 +278,7 @@ GameObject:
   - component: {fileID: 2651468352279367787}
   - component: {fileID: 2442898060013576796}
   - component: {fileID: 1132666428168439109}
+  - component: {fileID: 4432964321147686594}
   m_Layer: 0
   m_Name: KingTower
   m_TagString: Untagged
@@ -355,6 +356,21 @@ MonoBehaviour:
   _healthBar: {fileID: 43872994023039375}
   _healthMaxValue: 20
   _radius: 1.5
+--- !u!114 &4432964321147686594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6288750359065833505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 535c62a6b1bd4ce89e6845f1f50ae4c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dieParticlesPrefab: {fileID: 19841798, guid: a67a99ff8d8cd2f488e471a8afe4f9dd,
+    type: 3}
+  _damageable: {fileID: 1132666428168439109}
 --- !u!1 &6796298737731352217
 GameObject:
   m_ObjectHideFlags: 0

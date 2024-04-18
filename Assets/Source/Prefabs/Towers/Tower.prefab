@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6395504475461640922}
   - component: {fileID: 3458207982413975855}
   - component: {fileID: 7687986850752653423}
+  - component: {fileID: 8022338631946996884}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -89,6 +90,21 @@ MonoBehaviour:
   _healthBar: {fileID: 1874154410949182669}
   _healthMaxValue: 20
   _radius: 1
+--- !u!114 &8022338631946996884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29772731814518591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 535c62a6b1bd4ce89e6845f1f50ae4c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dieParticlesPrefab: {fileID: 19841798, guid: a67a99ff8d8cd2f488e471a8afe4f9dd,
+    type: 3}
+  _damageable: {fileID: 7687986850752653423}
 --- !u!1 &2453516912755945461
 GameObject:
   m_ObjectHideFlags: 0
