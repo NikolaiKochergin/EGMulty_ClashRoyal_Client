@@ -1,4 +1,5 @@
 ﻿using System;
+using Source.Scripts.GameCore.UnitLogic;
 using UnityEngine;
 
 namespace Source.Scripts.StaticData
@@ -9,6 +10,7 @@ namespace Source.Scripts.StaticData
         [SerializeField, Min(0)] private float _healthMaxValue = 10;
         [SerializeField, Min(0)] private float _speed = 4f;
         [SerializeField, Min(0)] private float _modelRadius = 1f;
+        [SerializeField] private MoveType _moveType;
         [Space(10)]
         [SerializeField, Min(0)] private float _startAttackDistance = 1f;
         [SerializeField, Min(0)] private float _stopAttackDistance = 1.5f;
@@ -17,7 +19,8 @@ namespace Source.Scripts.StaticData
         [Space(10)] 
         [SerializeField, Min(0)] private float _damage = 2f;
         [SerializeField, Min(0)] private float _attackDelay = 1f;
-        
+
+        public MoveType MoveType => _moveType;
         public float HealthMaxValue => _healthMaxValue;
         public float Speed => _speed;
         public float ModelRadius => _modelRadius;

@@ -34,6 +34,7 @@ namespace Source.Scripts.GameCore.UnitLogic.States
 
             _time -= _attack.Delay;
             _tempTarget = _target.Damageable;
+            _animator.transform.LookAt(_target.Damageable.Transform, Vector3.up);
             _animator.ShowAttack(()=> _attack.ApplyTo(_tempTarget));
         }
     }

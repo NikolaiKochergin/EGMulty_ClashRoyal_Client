@@ -11,6 +11,8 @@ namespace Source.Scripts.GameCore.UnitLogic.AI
         private readonly Team _enemyTeam;
         private readonly TargetContainer _target;
         
+        private float _distanceToCurrentTarget;
+
         public MeleeUnitBrain(UnitBase unit, FSM fsm, Team enemyTeam, TargetContainer target)
         {
             _unit = unit;
@@ -25,8 +27,8 @@ namespace Source.Scripts.GameCore.UnitLogic.AI
             switch (_fsm.CurrentState)
             {
                 case SearchTargetState:
-                    if (_enemyTeam.TryGetNearestTower(_unit.Transform.position, out _target.Damageable) ||
-                        _enemyTeam.TryGetNearestUnit(_unit.Transform.position, out _target.Damageable))
+                    if (_enemyTeam.TryGetNearestTower(_unit.Transform.position, out _target.Damageable, out _distanceToCurrentTarget) ||
+                        _enemyTeam.TryGetNearestWalkingUnit(_unit.Transform.position, out _target.Damageable, out _distanceToCurrentTarget))
                     {
                         _fsm.Set<MoveToTargetState>();
                         break;
@@ -41,17 +43,18 @@ namespace Source.Scripts.GameCore.UnitLogic.AI
                         _fsm.Set<SearchTargetState>();
                         break;
                     }
-                    
-                    if (_unit.Stats.StartAttackDistance + _target.Damageable.Radius >= DistanceTo(_target.Damageable.Transform))
+
+                    _distanceToCurrentTarget = DistanceTo(_target.Damageable.Transform);
+                    if (_unit.Stats.StartAttackDistance + _target.Damageable.Radius >= _distanceToCurrentTarget)
                     {
                         _fsm.Set<AttackState>();
                         break;
                     }
 
-                    if (_enemyTeam.TryGetNearestUnit(_unit.transform.position, out IDamageable target) == false)
+                    if (_enemyTeam.TryGetNearestWalkingUnit(_unit.transform.position, out IDamageable target, out float distance) == false)
                         break;
 
-                    if (_unit.Stats.StartChaseDistance + target.Radius >= DistanceTo(target.Transform))
+                    if (_unit.Stats.StartChaseDistance + target.Radius >= distance)
                     {
                         _target.Damageable = target;
                         _fsm.Set<ChaseState>();
@@ -68,14 +71,15 @@ namespace Source.Scripts.GameCore.UnitLogic.AI
                         _fsm.Set<ChaseState>();
                     break;
                 case ChaseState:
+                    _distanceToCurrentTarget = DistanceTo(_target.Damageable.Transform);
                     if (_target.Damageable.Health.CurrentValue == 0 
-                        || _unit.Stats.StopChaseDistance + _target.Damageable.Radius < DistanceTo(_target.Damageable.Transform))
+                        || _unit.Stats.StopChaseDistance + _target.Damageable.Radius < _distanceToCurrentTarget)
                     {
                         _fsm.Set<SearchTargetState>();
                         break;
                     }
                     
-                    if(_unit.Stats.StartAttackDistance + _target.Damageable.Radius >= DistanceTo(_target.Damageable.Transform))
+                    if(_unit.Stats.StartAttackDistance + _target.Damageable.Radius >= _distanceToCurrentTarget)
                         _fsm.Set<AttackState>();
                     break;
                 case VictoryState:

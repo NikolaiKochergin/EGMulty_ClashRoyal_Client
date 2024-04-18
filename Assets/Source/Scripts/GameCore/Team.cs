@@ -8,47 +8,68 @@ namespace Source.Scripts.GameCore
     public class Team
     {
         private readonly List<IDamageable> _towers = new List<IDamageable>();
-        private readonly List<IDamageable> _meleeUnits = new List<IDamageable>();
+        private readonly List<IDamageable> _walkingUnits = new List<IDamageable>();
         private readonly List<IDamageable> _flyUnits = new List<IDamageable>();
-        private readonly List<IDamageable> _ogrUnits = new List<IDamageable>();
 
         public void Add(Tower tower) => 
             AddObjectToList(_towers, tower);
 
         public void Add(UnitBase unit)
         {
-            switch (unit)
+            switch (unit.Stats.MoveType)
             {
-                case MeleeUnit:
-                    AddObjectToList(_meleeUnits, unit);
+                case MoveType.Walk:
+                    AddObjectToList(_walkingUnits, unit);
                     break;
-                case FlyUnit:
+                case MoveType.Fly:
                     AddObjectToList(_flyUnits, unit);
                     break;
-                case OgrUnit:
-                    AddObjectToList(_ogrUnits, unit);
-                    break;
                 default:
-                    throw new ArgumentException($"Trying to add unsupported unit type of {unit.GetType()}");
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
-        public bool TryGetNearestUnit(in Vector3 currentPosition, out IDamageable unit)
+        public bool TryGetNearestAnyUnit(in Vector3 currentPosition, out IDamageable unit, out float distance)
         {
-            unit = GetNearest(currentPosition, _meleeUnits);
+            TryGetNearestWalkingUnit(currentPosition, out IDamageable walking, out float walkingDistance);
+            TryGetNearestFlyUnit(currentPosition, out IDamageable fly, out float flyDistance);
+
+            if (flyDistance < walkingDistance)
+            {
+                unit = fly;
+                distance = flyDistance;
+            }
+            else
+            {
+                unit = walking;
+                distance = walkingDistance;
+            }
+
             return unit != null;
         }
 
-        public bool TryGetNearestTower(in Vector3 currentPosition, out IDamageable tower)
+        public bool TryGetNearestFlyUnit(in Vector3 currentPosition, out IDamageable unit, out float distance)
         {
-            tower = GetNearest(currentPosition, _towers);
+            unit = GetNearest(currentPosition, _flyUnits, out distance);
+            return unit != null;
+        }
+
+        public bool TryGetNearestWalkingUnit(in Vector3 currentPosition, out IDamageable unit, out float distance)
+        {
+            unit = GetNearest(currentPosition, _walkingUnits, out distance);
+            return unit != null;
+        }
+
+        public bool TryGetNearestTower(in Vector3 currentPosition, out IDamageable tower, out float distance)
+        {
+            tower = GetNearest(currentPosition, _towers, out distance);
             return tower != null;
         }
 
-        private static IDamageable GetNearest<T>(in Vector3 currentPosition, IEnumerable<T> objects) where T : IDamageable
+        private static IDamageable GetNearest<T>(in Vector3 currentPosition, IEnumerable<T> objects, out float distance) where T : IDamageable
         {
             IDamageable nearestTarget = null;
-            float distance = float.MaxValue;
+            distance = float.MaxValue;
             
             foreach (T target in objects)
             {
