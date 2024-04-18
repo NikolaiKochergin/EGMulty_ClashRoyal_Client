@@ -28,4 +28,20 @@ Week-8
 
 1. Переделал добавление юнитов и башен в команды в соответствии с уроками. Добавил HealthBar с подпиской на изменение здоровья. Наненсение урона в Health происходит через интерфейс IDamageable. Сделал такую цепочку чтобы была возможность добавить какие то эффекты при нанесении урона или что то подобное, чтобы не пихать эту логику в модель здоровья, а она оставалась в модели юнита.
 
+2. В рабочем проекте я скорее всего так не усложнял все и оставил бы логику смены состояний в самих состояних. Но так как это учебный проект, решил по эксперементировать с другим решением. Теперь сами состояния не знают о машине состояний. Логика переключения состояний находится в скриптах Brain https://github.com/NikolaiKochergin/EGMulty_ClashRoyal_Client/tree/week-8/Assets/Source/Scripts/GameCore/UnitLogic/AI
+
+3. Добавил разных юнитов. Поиск и добавление юнитов реализовал по другому чем в лекциях. В моем случае юниты и башни добавляются в скрипт Team.
+https://github.com/NikolaiKochergin/EGMulty_ClashRoyal_Client/blob/week-8/Assets/Source/Scripts/GameCore/Team.cs
+
+4. Сами юниты вот такие получились.
+https://github.com/NikolaiKochergin/EGMulty_ClashRoyal_Client/blob/week-8/Assets/Source/Scripts/GameCore/UnitLogic/UnitBase.cs
+https://github.com/NikolaiKochergin/EGMulty_ClashRoyal_Client/blob/week-8/Assets/Source/Scripts/GameCore/UnitLogic/MeleeUnit.cs
+https://github.com/NikolaiKochergin/EGMulty_ClashRoyal_Client/blob/week-8/Assets/Source/Scripts/GameCore/UnitLogic/RangeUnit.cs
+https://github.com/NikolaiKochergin/EGMulty_ClashRoyal_Client/blob/week-8/Assets/Source/Scripts/GameCore/UnitLogic/GiantUnit.cs
+
+5. Синхронизацию нанесения урона целям с анимациями сделал через триггер эвенты анимаций. Сами атаки имеют базовый класс и назначаются в инспекторе.
+https://github.com/NikolaiKochergin/EGMulty_ClashRoyal_Client/blob/week-8/Assets/Source/Scripts/GameCore/UnitLogic/AttackBase.cs
+https://github.com/NikolaiKochergin/EGMulty_ClashRoyal_Client/blob/week-8/Assets/Source/Scripts/GameCore/UnitLogic/MeleeAttack.cs
+https://github.com/NikolaiKochergin/EGMulty_ClashRoyal_Client/blob/week-8/Assets/Source/Scripts/GameCore/UnitLogic/RangeAttack.cs
+
 
