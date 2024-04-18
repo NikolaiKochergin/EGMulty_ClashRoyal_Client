@@ -29,34 +29,29 @@ namespace Source.Scripts.GameCore
             }
         }
 
-        public bool TryGetNearestAnyUnit(in Vector3 currentPosition, out IDamageable unit, out float distance)
+        public bool TryGetNearestUnit(Vector3 currentPosition, IEnumerable<MoveType> attackTargetTypes, out IDamageable unit, out float distanceToCurrentTarget)
         {
-            TryGetNearestWalkingUnit(currentPosition, out IDamageable walking, out float walkingDistance);
-            TryGetNearestFlyUnit(currentPosition, out IDamageable fly, out float flyDistance);
-
-            if (flyDistance < walkingDistance)
+            List<IDamageable> targets = new List<IDamageable>();
+            foreach (MoveType attackTargetType in attackTargetTypes)
             {
-                unit = fly;
-                distance = flyDistance;
+                switch (attackTargetType)
+                {
+                    case MoveType.Walk:
+                        IDamageable walker = GetNearest(currentPosition, _walkingUnits, out float walkingDistance);
+                        if(walker != null)
+                            targets.Add(walker);
+                        break;
+                    case MoveType.Fly:
+                        IDamageable flyer = GetNearest(currentPosition, _flyUnits, out float flyingDistance);
+                        if(flyer != null)
+                            targets.Add(flyer);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
-            else
-            {
-                unit = walking;
-                distance = walkingDistance;
-            }
 
-            return unit != null;
-        }
-
-        public bool TryGetNearestFlyUnit(in Vector3 currentPosition, out IDamageable unit, out float distance)
-        {
-            unit = GetNearest(currentPosition, _flyUnits, out distance);
-            return unit != null;
-        }
-
-        public bool TryGetNearestWalkingUnit(in Vector3 currentPosition, out IDamageable unit, out float distance)
-        {
-            unit = GetNearest(currentPosition, _walkingUnits, out distance);
+            unit = GetNearest(currentPosition, targets, out distanceToCurrentTarget);
             return unit != null;
         }
 

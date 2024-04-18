@@ -31,7 +31,7 @@ namespace Source.Scripts.GameCore.UnitLogic
                 .Add(new VictoryState(_unitAnimator))
                 .Add(new DieState(_unitAnimator))
                 .Build();
-            _brain = new RangeUnitBrain(this, _fsm, enemyTeam, _target);
+            _brain = new RangeUnitBrain(this, _fsm, enemyTeam, _target, _attack);
         }
         
         private void Update()

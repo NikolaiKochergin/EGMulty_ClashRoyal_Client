@@ -10,15 +10,17 @@ namespace Source.Scripts.GameCore.UnitLogic.AI
         private readonly FSM _fsm;
         private readonly Team _enemyTeam;
         private readonly TargetContainer _target;
-        
+        private readonly AttackBase _attack;
+
         private float _distanceToCurrentTarget;
 
-        public RangeUnitBrain(UnitBase unit, FSM fsm, Team enemyTeam, TargetContainer target)
+        public RangeUnitBrain(UnitBase unit, FSM fsm, Team enemyTeam, TargetContainer target, AttackBase attack)
         {
             _unit = unit;
             _fsm = fsm;
             _enemyTeam = enemyTeam;
             _target = target;
+            _attack = attack;
             _unit.Health.Died += OnDied;
         }
 
@@ -28,7 +30,7 @@ namespace Source.Scripts.GameCore.UnitLogic.AI
             {
                 case SearchTargetState:
                     if (_enemyTeam.TryGetNearestTower(_unit.Transform.position, out _target.Damageable, out float towerDistance) ||
-                        _enemyTeam.TryGetNearestAnyUnit(_unit.Transform.position, out _target.Damageable, out float unitDistance))
+                        _enemyTeam.TryGetNearestUnit(_unit.Transform.position, _attack.TargetTypes, out _target.Damageable, out float unitDistance))
                     {
                         _fsm.Set<MoveToTargetState>();
                         break;
@@ -51,7 +53,7 @@ namespace Source.Scripts.GameCore.UnitLogic.AI
                         break;
                     }
 
-                    if (_enemyTeam.TryGetNearestAnyUnit(_unit.transform.position, out IDamageable target, out float distance) == false)
+                    if (_enemyTeam.TryGetNearestUnit(_unit.transform.position, _attack.TargetTypes, out IDamageable target, out float distance) == false)
                         break;
 
                     if (_unit.Stats.StartChaseDistance + target.Radius >= distance)

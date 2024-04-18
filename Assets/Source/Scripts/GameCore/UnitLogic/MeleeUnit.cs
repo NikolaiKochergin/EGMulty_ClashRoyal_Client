@@ -31,7 +31,7 @@ namespace Source.Scripts.GameCore.UnitLogic
                 .Add(new VictoryState(_unitAnimator))
                 .Add(new DieState(_unitAnimator))
                 .Build();
-            _brain = new MeleeUnitBrain(this, _fsm, enemyTeam, _target);
+            _brain = new MeleeUnitBrain(this, _fsm, enemyTeam, _target, _attack);
         }
         
         private void Update()
@@ -39,5 +39,6 @@ namespace Source.Scripts.GameCore.UnitLogic
             if(Health.CurrentValue != 0)
                 _brain.Update();
         }
+
     }
 }

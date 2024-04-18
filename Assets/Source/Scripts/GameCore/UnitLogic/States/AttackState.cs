@@ -21,9 +21,8 @@ namespace Source.Scripts.GameCore.UnitLogic.States
 
         public override void Enter()
         {
-            _animator.transform.LookAt(_target.Damageable.Transform, Vector3.up);
             _animator.ShowIdle();
-            _time = 0;
+            _time = _attack.Delay * 0.6f;
         }
 
         public override void Update()
@@ -31,7 +30,7 @@ namespace Source.Scripts.GameCore.UnitLogic.States
             _time += Time.deltaTime;
             if(_time < _attack.Delay)
                 return;
-
+            
             _time -= _attack.Delay;
             _tempTarget = _target.Damageable;
             _animator.transform.LookAt(_target.Damageable.Transform, Vector3.up);
