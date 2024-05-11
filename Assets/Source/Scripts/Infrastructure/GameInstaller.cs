@@ -7,11 +7,10 @@ namespace Source.Scripts.Infrastructure
 {
     public class GameInstaller : MonoBehaviour, IInstaller
     {
-        public void InstallBindings(ContainerBuilder builder)
-        {
-            builder.AddSingleton(typeof(Game));
-            builder.AddSingleton(typeof(PlayerService), typeof(IPlayerService));
-            builder.AddSingleton(typeof(EnemyService), typeof(IEnemyService));
-        }
+        public void InstallBindings(ContainerBuilder builder) =>
+            builder
+                .AddSingleton(typeof(Game))
+                .AddSingleton(typeof(PlayerService), typeof(IPlayerService))
+                .AddSingleton(typeof(EnemyService), typeof(IEnemyService));
     }
 }

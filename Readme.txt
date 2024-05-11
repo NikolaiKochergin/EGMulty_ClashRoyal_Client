@@ -44,4 +44,7 @@ https://github.com/NikolaiKochergin/EGMulty_ClashRoyal_Client/blob/week-8/Assets
 https://github.com/NikolaiKochergin/EGMulty_ClashRoyal_Client/blob/week-8/Assets/Source/Scripts/GameCore/UnitLogic/MeleeAttack.cs
 https://github.com/NikolaiKochergin/EGMulty_ClashRoyal_Client/blob/week-8/Assets/Source/Scripts/GameCore/UnitLogic/RangeAttack.cs
 
+6. Добавил возможность передвижения юнитов через Transform
+https://github.com/NikolaiKochergin/EGMulty_ClashRoyal_Client/blob/week-8/Assets/Source/Scripts/GameCore/UnitLogic/TransformMover.cs
+
 
